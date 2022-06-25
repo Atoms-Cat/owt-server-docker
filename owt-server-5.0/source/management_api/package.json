@@ -1,0 +1,28 @@
+{
+  "name": "OWT-MCU-Management-API",
+  "version":"5.0.0",
+  "dependencies": {
+    "amqplib": "^0.7.0",
+    "log4js": "^1.1.1",
+    "express": "*",
+    "mongodb": "^3.6.4",
+    "toml": "*",
+    "ajv": "^6.12.3",
+    "body-parser": "*",
+    "mongoose": "^5.9.6",
+    "fraction.js": "^4.0.12"
+  },
+  "engine": {
+    "node": "10.21.0"
+  },
+  "main": "api.js",
+  "bin": "api.js",
+  "pkg": {
+    "assets": [
+      "node_modules*"
+    ],
+    "targets": [
+      "node8"
+    ]
+  }
+}

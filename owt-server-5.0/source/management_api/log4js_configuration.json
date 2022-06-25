@@ -1,0 +1,35 @@
+{
+  "appenders": [
+    {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%d  - %p: %c - %m",
+        "replaceConsole": true
+      }
+    }
+  ],
+  "levels": {
+    "ServiceRegistry": "INFO",
+    "RoomRegistry": "INFO",
+    "TokenRegistry": "INFO",
+    "ServicesResource": "INFO",
+    "ServiceResource": "INFO",
+    "RoomsResource": "INFO",
+    "RoomResource": "INFO",
+    "UsersResource": "INFO",
+    "UserResource": "INFO",
+    "TokensResource": "INFO",
+    "ServerAuthenticator": "INFO",
+    "RequestHandler": "INFO",
+    "RPCPublic": "INFO",
+    "RPC": "INFO",
+    "ManagementServer": "INFO",
+    "Room": "INFO",
+    "StreamsResource": "INFO",
+    "ParticipantsResource": "INFO",
+    "StreamingOutsResource": "INFO",
+    "RecordingsResource": "INFO",
+    "SipCallsResource": "INFO"
+  }
+}

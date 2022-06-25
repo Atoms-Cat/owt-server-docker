@@ -1,0 +1,24 @@
+{
+  "appenders": [
+    {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%d  - %p: %c - %m",
+        "replaceConsole": true
+      }
+    }
+  ],
+  "levels": {
+    "ClusterWorker": "INFO",
+    "LoadCollector": "INFO",
+    "Main": "INFO",
+    "LegacyClient": "INFO",
+    "V10Client": "INFO",
+    "V11Client": "INFO",
+    "SocketIOServer": "INFO",
+    "Portal": "INFO",
+    "RpcClient": "INFO",
+    "AmqpClient": "INFO"
+  }
+}

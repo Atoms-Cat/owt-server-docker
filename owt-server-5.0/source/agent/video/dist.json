@@ -1,0 +1,83 @@
+{
+    "name": "video-agent",
+    "dest": "video_agent",
+    "common": {
+        "package": "../package.json",
+        "files": [
+            "agent.toml",
+            "log4js_configuration.json",
+            "init.sh",
+            "install_deps.sh",
+            "install_openh264.sh",
+            "uninstall_openh264.sh",
+            "configLoader.js",
+            "videoCapability.js",
+            "../index.js",
+            "../networkHelper.js",
+            "../nodeManager.js",
+            "../workingNode.js",
+            "log4cxx.properties",
+            "../../common/cipher.js",
+            "../../common/amqpClient.js",
+            "../../common/clusterWorker.js",
+            "../../common/loadCollector.js",
+            "../../common/logger.js",
+            "../../common/makeRPC.js",
+            "../../common/rpcChannel.js",
+            "../../common/mediaUtil.js",
+            "../../../scripts/release/install_ffmpeg.sh",
+            "../../../scripts/release/initauth.js",
+            "../../../scripts/detectOS.sh",
+            "compile_svtHevcEncoder.sh"
+        ],
+        "folders": {
+            "video": [
+                "index.js",
+                "layout.js",
+                "../connections.js",
+                "../InternalConnectionFactory.js"
+            ],
+            "avatars": [
+                "avatars/*"
+            ]
+        }
+    },
+    "natives": {
+        "libdist": "lib",
+        "addons": [
+            {
+                "folder": "videoMixer/videoMixer_sw",
+                "name": "videoMixer-sw"
+            },
+            {
+                "folder": "videoTranscoder/videoTranscoder_sw",
+                "name": "videoTranscoder-sw"
+            },
+            {
+                "folder": "videoMixer/videoMixer_msdk",
+                "name": "videoMixer-msdk"
+            },
+            {
+                "folder": "videoTranscoder/videoTranscoder_msdk",
+                "name": "videoTranscoder-msdk"
+            },
+            {
+                "folder": "../addons/mediaFrameMulticaster",
+                "name": "mediaFrameMulticaster"
+            },
+            {
+                "folder": "../addons/internalIO",
+                "name": "internalIO"
+            },
+            {
+                "folder": "../addons/logger",
+                "name": "logger"
+            },
+            {
+                "folder": "../addons/quicIO",
+                "name": "quicIO"
+            }
+        ]
+    },
+    "start": "node . -U video"
+}

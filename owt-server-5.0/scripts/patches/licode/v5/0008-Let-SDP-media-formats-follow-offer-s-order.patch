@@ -1,0 +1,76 @@
+From 9a6d63726de41f7d7e313e550841d7a062589174 Mon Sep 17 00:00:00 2001
+From: Chen Li1 <li1.chen@intel.com>
+Date: Wed, 14 Mar 2018 16:49:39 +0800
+Subject: [PATCH] Let SDP media formats follow offer's order
+
+---
+ erizo/src/erizo/SdpInfo.cpp | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/erizo/src/erizo/SdpInfo.cpp b/erizo/src/erizo/SdpInfo.cpp
+index cd24b78..c18b04a 100644
+--- a/erizo/src/erizo/SdpInfo.cpp
++++ b/erizo/src/erizo/SdpInfo.cpp
+@@ -575,6 +575,7 @@ namespace erizo {
+       mtype = VIDEO_TYPE;
+     }
+ 
++    std::map<unsigned int, int> parsed_order_map;
+     while (std::getline(iss, line)) {
+       size_t isVideo = line.find(video);
+       size_t isAudio = line.find(audio);
+@@ -687,6 +688,16 @@ namespace erizo {
+         mtype = AUDIO_TYPE;
+         hasAudio = true;
+       }
++      if (isVideo != std::string::npos || isAudio != std::string::npos) {
++        // parse payload number in mline
++        std::vector<std::string> pieces = stringutil::splitOneOf(line, " ");
++        for (unsigned int i = 3; i < pieces.size(); i++) {
++          unsigned int PT = strtoul(pieces[i].c_str(), nullptr, 10);
++          if (parsed_order_map.find(PT) == parsed_order_map.end()) {
++            parsed_order_map[PT] = parsed_order_map.size();
++          }
++        }
++      }
+       if (isCand != std::string::npos) {
+         std::vector<std::string> pieces = stringutil::splitOneOf(line, " ");
+         pieces[0] = stringutil::splitOneOf(pieces[0], ":")[1];
+@@ -935,6 +946,10 @@ namespace erizo {
+           rtx_maps.push_back(parsed_map);
+           continue;
+         }
++        if (parsed_order_map.find(parsed_map.payload_type) == parsed_order_map.end()) {
++          continue;
++        }
++
+         RtpMap negotiated_map(parsed_map);
+         outInPTMap[parsed_map.payload_type] = internal_map.payload_type;
+         inOutPTMap[internal_map.payload_type] = parsed_map.payload_type;
+@@ -976,6 +991,9 @@ namespace erizo {
+           }
+         }
+         negotiated_map.format_parameters = negotiated_parameters;
++        if (negotiated_map.format_parameters.empty()) {
++          negotiated_map.format_parameters = parsed_map.format_parameters;
++        }
+ 
+         if (negotiated_map.media_type == VIDEO_TYPE) {
+           videoCodecs++;
+@@ -989,6 +1007,13 @@ namespace erizo {
+       }
+     }
+ 
++    // Reorder the payloadVector
++    auto order_cmp = [&parsed_order_map](const RtpMap & a, const RtpMap & b) -> bool
++    {
++      return parsed_order_map[a.payload_type] < parsed_order_map[b.payload_type];
++    };
++    sort(payloadVector.begin(), payloadVector.end(), order_cmp);
++
+     //  Check atp rtx
+     for (RtpMap& rtx_map : rtx_maps) {
+       for (const RtpMap& internal_map : internalPayloadVector_) {
+-- 
+1.9.1
+

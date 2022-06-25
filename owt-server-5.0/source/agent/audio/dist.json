@@ -1,0 +1,67 @@
+{
+    "name": "audio-agent",
+    "dest": "audio_agent",
+    "common": {
+        "package": "../package.json",
+        "files": [
+            "agent.toml",
+            "log4js_configuration.json",
+            "compile_ffmpeg_with_libfdkaac.sh",
+            "install_deps.sh",
+            "configLoader.js",
+            "../index.js",
+            "../networkHelper.js",
+            "../nodeManager.js",
+            "../workingNode.js",
+            "log4cxx.properties",
+            "../../common/cipher.js",
+            "../../common/amqpClient.js",
+            "../../common/clusterWorker.js",
+            "../../common/loadCollector.js",
+            "../../common/logger.js",
+            "../../common/makeRPC.js",
+            "../../common/rpcChannel.js",
+            "../../../scripts/release/install_ffmpeg.sh",
+            "../../../scripts/release/initauth.js"
+        ],
+        "folders": {
+            "audio": [
+                "index.js",
+                "selectiveMixer.js",
+                "activeAudioSelector.js",
+                "../connections.js",
+                "../InternalConnectionFactory.js"
+            ]
+        }
+    },
+    "natives": {
+        "libdist": "lib",
+        "addons": [
+            {
+                "folder": "audioMixer",
+                "name": "audioMixer"
+            },
+            {
+                "folder": "../addons/mediaFrameMulticaster",
+                "name": "mediaFrameMulticaster"
+            },
+            {
+                "folder": "../addons/internalIO",
+                "name": "internalIO"
+            },
+            {
+                "folder": "../addons/logger",
+                "name": "logger"
+            },
+            {
+                "folder": "../addons/quicIO",
+                "name": "quicIO"
+            },
+            {
+                "folder": "../addons/audioRanker",
+                "name": "audioRanker"
+            }
+        ]
+    },
+    "start": "node . -U audio"
+}

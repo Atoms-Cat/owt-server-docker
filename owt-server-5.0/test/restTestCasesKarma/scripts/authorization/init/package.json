@@ -1,0 +1,27 @@
+{
+  "name": "WooGeen-MCU-Nuve",
+  "version": "4.1.0",
+  "dependencies": {
+    "ajv": "^6.12.3",
+    "amqp": "*",
+    "body-parser": "*",
+    "express": "*",
+    "fraction.js": "*",
+    "log4js": "^6.3.0",
+    "mongojs": "",
+    "mongoose": "^5.3.9",
+    "toml": "*"
+  },
+  "engine": {
+    "node": "8.11.1"
+  },
+  "bin": "owt.js",
+  "pkg": {
+    "assets": [
+      "node_modules*"
+    ],
+    "targets": [
+      "node8"
+    ]
+  }
+}

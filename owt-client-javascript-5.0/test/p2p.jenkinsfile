@@ -1,0 +1,59 @@
+void setBuildStatus(String jsUrl, String message, String state) {
+    step([
+        $class: "GitHubCommitStatusSetter",
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: jsUrl],
+        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/p2p"],
+        errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+        statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+    ]);
+}
+
+pipeline {
+    agent any
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr:'20'))
+        timeout(time: 30, unit: 'MINUTES')
+    }
+    stages {
+        stage('startP2PServer'){
+            agent{
+                node {
+                    label "${env.p2pServer}"
+                }
+            }
+            steps{
+                script{
+                    withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                        sh "python ${env.startServerScript} --p2p-server-path ${env.p2pServerPath} \
+                        --owner open-webrtc-toolkit --repo owt-client-javascript --commit-id ${GIT_COMMIT} \
+                        --git-branch ${GIT_BRANCH} --github-script ${env.serverGithubScriptPath} --mode p2p --workspace ${WORKSPACE}"
+                    }
+                }
+            }
+        }
+
+        stage('runJsCI'){
+            agent{
+                node {
+                    label "${env.jsRunCaseServer}"
+                    customWorkspace "${env.jsSourcePath}"
+                }
+            }
+            steps {
+                sh "python ${env.jsCiScriptPath}/runTest.py --mode ci --source-path ${env.jsSourcePath} \
+                --browsers chrome --mode ci --owner open-webrtc-toolkit --repo owt-client-javascript \
+                --git-branch ${GIT_BRANCH} --github-script ${env.jsP2PTestGithubScriptPath}"
+            }
+        }
+    }
+
+    post {
+        success {
+            setBuildStatus("${env.jsUrl}", "Build succeeded", "SUCCESS");
+        }
+        failure {
+            setBuildStatus("${env.jsUrl}", "Build failed", "FAILURE");
+        }
+    }
+}

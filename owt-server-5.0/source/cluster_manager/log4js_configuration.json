@@ -1,0 +1,20 @@
+{
+  "appenders": [
+    {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%d  - %p: %c - %m",
+        "replaceConsole": true
+      }
+    }
+  ],
+  "levels": {
+    "AmqpClient": "INFO",
+    "Main": "INFO",
+    "ClusterManager": "INFO",
+    "Scheduler": "INFO",
+    "Matcher": "INFO",
+    "Strategy": "INFO"
+  }
+}

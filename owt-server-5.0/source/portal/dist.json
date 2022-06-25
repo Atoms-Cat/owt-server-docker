@@ -1,0 +1,54 @@
+{
+    "name": "portal",
+    "dest": "portal",
+    "common": {
+        "package": "package.json",
+        "files": [
+            "index.js",
+            "log4js_configuration.json",
+            "portal.js",
+            "portal.toml",
+            "rpcRequest.js",
+            "socketIOServer.js",
+            "legacyClient.js",
+            "client.js",
+            "../common/amqpClient.js",
+            "../common/cipher.js",
+            "../common/clusterWorker.js",
+            "../common/loadCollector.js",
+            "../common/logger.js",
+            "../common/makeRPC.js",
+            "../common/rpcChannel.js",
+            "../../scripts/release/initauth.js",
+            "../../scripts/release/initcert.js",
+            "../../scripts/detectOS.sh"
+        ],
+        "folders": {
+            "versions": [
+                "versions/portalDataAdapter.js",
+                "versions/requestDataValidator.js",
+                "versions/requestFormatV1-0.js",
+                "versions/requestFormatV1-2.js",
+                "versions/requestType.js"
+            ],
+            "cert": [
+                "../../cert/certificate.pfx",
+                "../../cert/.owt.keystore"
+            ],
+            "data_access": [
+                "../data_access/*"
+            ]
+        }
+    },
+    "debug": {
+        "folders": {
+            "test": [
+                "test/portal_test.js",
+                "test/rpcRequest_test.js",
+                "test/socketIOServer_legacyClient_test.js",
+                "test/socketIOServer_v10Client_test.js"
+            ]
+        }
+    },
+    "start": "node ."
+}

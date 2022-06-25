@@ -1,0 +1,50 @@
+{
+    "name": "conference-agent",
+    "dest": "conference_agent",
+    "common": {
+        "package": "package.json",
+        "files": [
+            "../nodeManager.js",
+            "../workingNode.js",
+            "configLoader.js",
+            "participant.js",
+            "agent.toml",
+            "roomController.js",
+            "log4js_configuration.json",
+            "rpcRequest.js",
+            "conference.js",
+            "accessController.js",
+            "rtcController.js",
+            "quicController.js",
+            "stream.js",
+            "subscription.js",
+            "../index.js",
+            "../networkHelper.js",
+            "../../common/formatUtil.js",
+            "../../common/cipher.js",
+            "../../common/amqpClient.js",
+            "../../common/clusterWorker.js",
+            "../../common/loadCollector.js",
+            "../../common/logger.js",
+            "../../common/makeRPC.js",
+            "../../common/rpcChannel.js",
+            "../../../scripts/release/initauth.js"
+        ],
+        "folders": {
+            "data_access": [
+                "../../data_access/*"
+            ]
+        }
+    },
+    "debug": {
+        "folders": {
+            "test": [
+                "test/controller_test.js",
+                "test/participant_test.js",
+                "test/accessController_test.js",
+                "test/rpcRequest_test.js"
+            ]
+        }
+    },
+    "start": "node . -U conference"
+}

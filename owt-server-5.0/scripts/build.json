@@ -1,0 +1,125 @@
+{
+    "mcu" : {
+        "include" : [
+            "video-mixer-sw",
+            "video-transcoder-sw",
+            "video-analyzer-sw",
+            "internal-io",
+            "logger",
+            "media-frame-multicaster",
+            "audio",
+            "audio-ranker",
+            "webrtc",
+            "avstream",
+            "gst-pipeline",
+            "sip"
+        ]
+    },
+    "mcu-msdk" : {
+        "include" : [
+            "video-mixer-msdk",
+            "video-transcoder-msdk",
+            "internal-io",
+            "logger",
+            "media-frame-multicaster",
+            "audio",
+            "audio-ranker",
+            "webrtc",
+            "avstream",
+            "sip"
+        ]
+    },
+    "mcu-all" : {
+        "include" : [
+            "mcu",
+            "video-mixer-msdk",
+            "video-transcoder-msdk"
+        ]
+    },
+    "all" : {
+        "include" : [
+            "mcu",
+            "video-mixer-msdk",
+            "video-transcoder-msdk"
+        ]
+    },
+    "webrtc" : {
+        "include" : [
+            "webrtc-conn",
+            "webrtc-frame"
+        ]
+    },
+    "mcu-quic": {
+        "include":[
+            "mcu",
+            "quic"
+        ]
+    },
+    "video-mixer-sw" : {
+        "path" : "source/agent/video/videoMixer/videoMixer_sw",
+        "gyp" : "binding.sw.gyp"
+    },
+    "video-transcoder-sw": {
+        "path" : "source/agent/video/videoTranscoder/videoTranscoder_sw",
+        "gyp" : "binding.sw.gyp"
+    },
+    "video-analyzer-sw": {
+        "path" : "source/agent/video/videoTranscoder/videoAnalyzer_sw",
+        "gyp"  : "binding.sw.gyp"
+    },
+    "video-mixer-msdk" : {
+        "path" : "source/agent/video/videoMixer/videoMixer_msdk",
+        "gyp" : "binding.msdk.gyp"
+    },
+    "video-transcoder-msdk": {
+        "path" : "source/agent/video/videoTranscoder/videoTranscoder_msdk",
+        "gyp" : "binding.msdk.gyp"
+    },
+    "gst-pipeline":{
+      "path" : "source/agent/analytics/videoGstPipeline",
+      "gyp"  : "binding.pipeline.gyp"
+      },
+
+    "internal-io" : {
+        "path" : "source/agent/addons/internalIO"
+    },
+    "avstream" : {
+        "path" : "source/agent/addons/avstreamLib"
+    },
+    "media-frame-multicaster" : {
+        "path" : "source/agent/addons/mediaFrameMulticaster"
+    },
+    "audio" : {
+        "path" : "source/agent/audio/audioMixer"
+    },
+    "webrtc-conn" : {
+        "path" : "source/agent/webrtc/rtcConn"
+    },
+    "webrtc-frame": {
+        "path" : "source/agent/webrtc/rtcFrame"
+    },
+    "sip" : {
+        "path" : "source/agent/sip/sipIn",
+        "gyp" : "binding.sip.gyp"
+    },
+    "logger" : {
+        "path" : "source/agent/addons/logger"
+    },
+    "audio-ranker" : {
+        "path" : "source/agent/addons/audioRanker"
+    },
+    "audio-ranker-test" : {
+        "path" : "source/agent/addons/audioRanker/test"
+    }
+    ,
+    "quicIO" : {
+        "path" : "source/agent/addons/quicIO"
+    },
+    "resource-util" : {
+        "path" : "source/agent/addons/resourceUtil"
+    },
+    "quic" : {
+        "path" : "source/agent/addons/quic",
+        "description": "QUIC agent supports WebTransport - QuicTransport connections. Experimental feature."
+    }
+}
